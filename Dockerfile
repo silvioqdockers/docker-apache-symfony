@@ -6,6 +6,7 @@ RUN    apt-get update \
     && apt-get -yq install \
         libapache2-mod-php5 \
         php5-intl \
+        php5-curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Configure PHP (CLI and Apache)
@@ -20,10 +21,6 @@ ADD vhost.conf /etc/apache2/sites-available/000-default.conf
 # Add main start script for when image launches
 ADD start.sh /start.sh
 RUN chmod 0755 /start.sh
-
-# Add all files in current host directory
-ADD . /var/www/app
-RUN chmod -R go+rX /var/www/app
 
 EXPOSE 80
 CMD ["/start.sh"]

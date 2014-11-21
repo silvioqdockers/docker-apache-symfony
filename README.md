@@ -3,21 +3,22 @@ docker-apache-symfony
 
 **Work in progress, not finished/tested yet, not yet pushed image to Docker Hub**
 
-Docker (base? tbc) image with fairly minimal requirements for running Symfony 2.
+Docker image with fairly minimal requirements for running Symfony 2.
 
-Based on:
+Based on/provides:
 
 * Debian Jessie
 * Apache 2.4
-* PHP 5.6
-
+* PHP 5.6 (mod_php and cli)
+* php5-intl
+* php5-curl
 
 Why?
 ----
 
 There are several Symfony Docker images to choose from. I created this one because I needed one based on Debian,
-and because I believe the image should only include the core requirements. It's easier to add than to remove things
-when extending an image.
+and because I believe the image should only include the core requirements (`php5-intl` and `php5-curl` are carefully
+chosen exceptions). It's easier to add than to remove things when extending an image.
 
 Note, this is not an image for building Symfony applications. You will need a separate image (TODO) to run tools
 like Composer etc.
@@ -26,13 +27,12 @@ like Composer etc.
 Getting started
 ---------------
 
-This section shows how to build and run a Symfony 2 application from scratch.
+This section shows how to build and run a Symfony 2 demo application from scratch.
 
 Prerequisites:
 
 * Docker
-* PHP
-* Composer
+* Composer (and therefore PHP)
 
 First, build your Symfony project on the host system:
 
@@ -40,9 +40,10 @@ First, build your Symfony project on the host system:
     composer create-project symfony/framework-standard-edition --no-interaction .
     php app/console generate:bundle --namespace=Acme/Bundle/DemoBundle --no-interaction --dir src
 
-Create the Dockerfile:
+Create the `Dockerfile`:
 
     echo "FROM fazy/apache-symfony" > Dockerfile
+    echo "ADD . /var/www/app" >> Dockerfile
 
 Then, build and run the Docker image:
 
@@ -54,43 +55,39 @@ Visit your new website:
     curl -sS http://localhost:8000/hello/Docker
 
 
-Building a containterised app
------------------------------
+Containerising your own app
+---------------------------
 
-To build a container including your Symfony app:
+To build a container including an existing Symfony app:
 
-Create a Dockerfile in the root of your application
-(e.g. /var/www/my-app):
+Create a `Dockerfile` in the root of your application (e.g. /var/www/my-app):
 
     FROM fazy/apache-symfony
+    ADD . /var/www/app
 
-Build your container:
+You might want to replace the above ADD line with something more specific:
+
+    ADD vendor /var/www/app/vendor/
+    ADD app /var/www/app/app/
+    ADD src /var/www/app/src/
+    ADD web /var/www/app/web/
+
+Adding `vendor` first *might* help a little with caching, assuming vendor changes less frequently than the others.
+
+Build your container and commit:
 
     cd /var/www/my-app
     docker build -t myname/myapp .
-
-Then you probably want to commit it:
-
     docker commit
 
-In the place where you want to deploy:
+You can then [pull](http://docs.docker.com/reference/commandline/cli/#pull) and
+[run](https://docs.docker.com/reference/run/) your Docker image anywhere.
 
-    docker pull myname/myapp
-    docker run -d -p 8000:80 myname/myapp
-
-Change port 8000 to any available local port, or use -P to automatically
-assign the exposed internal port 80.
-
-Obviously you're unlikely to want port 8000 in production, and might
-need a Varnish cache or similar to manage the various install apps.
 
 Extending the app
 -----------------
 
-There are no database drivers, so you probably need to apt-get install
-the one(s) you need.
-
-To run apt-get in an atomic way, add this to your Dockerfile:
+To install more packages, add this to your `Dockerfile`:
 
     RUN    apt-get update \
         && apt-get -yq install \
@@ -100,5 +97,7 @@ To run apt-get in an atomic way, add this to your Dockerfile:
 
 Replace `<packag-1>`, `<package-2>` with a list of packages to install.
 
-This takes longer, because you must run the update, but it also keeps
-the commit small.
+To use your own Apache config, you can create your own version of the `vhost.conf` in this project, then
+ADD it in your Dockerfile:
+
+    ADD vhost.conf /etc/apache2/sites-available/000-default.conf
