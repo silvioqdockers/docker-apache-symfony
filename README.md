@@ -1,13 +1,13 @@
 docker-symfony
 ==============
 
-**Work in progress, not finished/tested yet**
+**Work in progress, not finished/tested yet, not yet pushed image to Docker Hub**
 
 Docker (base? tbc) image with fairly minimal requirements for running Symfony 2.
 
 Based on:
 
-* Debian Jessie (tbc, started with Wheezy)
+* Debian Jessie
 * Apache 2.4
 * PHP 5.6
 
@@ -16,8 +16,8 @@ Why?
 ----
 
 There are several Symfony Docker images to choose from. I created this one because I needed one based on Debian,
-and because I believe the image should have only include the core requirements. It's easier to add than to remove
-things when extending an image.
+and because I believe the image should only include the core requirements. It's easier to add than to remove things
+when extending an image.
 
 Note, this is not an image for building Symfony applications. You will need a separate image (TODO) to run tools
 like Composer etc.
@@ -46,7 +46,7 @@ Create the Dockerfile:
 
 Then, build and run the Docker image:
 
-    docker build -t my_name/my_image .
+    docker build -t symfony/hello .
     docker run -d -p 8000:80 -v /var/www/hello:/var/www/app --name hello symfony/hello
 
 Visit your new website:
@@ -90,7 +90,7 @@ Extending the app
 There are no database drivers, so you probably need to apt-get install
 the one(s) you need.
 
-To run apt-get in an atomic way, use this:
+To run apt-get in an atomic way, add this to your Dockerfile:
 
     RUN    apt-get update \
         && apt-get -yq install \
