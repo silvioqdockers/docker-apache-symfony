@@ -1,5 +1,5 @@
-docker-symfony
-==============
+docker-apache-symfony
+=====================
 
 **Work in progress, not finished/tested yet, not yet pushed image to Docker Hub**
 
@@ -42,7 +42,7 @@ First, build your Symfony project on the host system:
 
 Create the Dockerfile:
 
-    echo "FROM fazy/symfony" > Dockerfile
+    echo "FROM fazy/apache-symfony" > Dockerfile
 
 Then, build and run the Docker image:
 
@@ -62,7 +62,7 @@ To build a container including your Symfony app:
 Create a Dockerfile in the root of your application
 (e.g. /var/www/my-app):
 
-    FROM fazy/symfony
+    FROM fazy/apache-symfony
 
 Build your container:
 

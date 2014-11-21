@@ -23,6 +23,7 @@ RUN chmod 0755 /start.sh
 
 # Add all files in current host directory
 ADD . /var/www/app
+RUN chmod -R go+rX /var/www/app
 
 EXPOSE 80
 CMD ["/start.sh"]
