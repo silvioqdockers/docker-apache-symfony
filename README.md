@@ -47,7 +47,7 @@ Create the Dockerfile:
 Then, build and run the Docker image:
 
     docker build -t symfony/hello .
-    docker run -d -p 8000:80 -v /var/www/hello:/var/www/app --name hello symfony/hello
+    docker run -d -p 8000:80 --name hello symfony/hello
 
 Visit your new website:
 
