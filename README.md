@@ -95,7 +95,7 @@ To install more packages, add this to your `Dockerfile`:
             <package-2> \
         && rm -rf /var/lib/apt/lists/*
 
-Replace `<packag-1>`, `<package-2>` with a list of packages to install.
+Replace `<package-1>`, `<package-2>` with a list of packages to install.
 
 To use your own Apache config, you can create your own version of the `vhost.conf` in this project, then
 ADD it in your Dockerfile:
