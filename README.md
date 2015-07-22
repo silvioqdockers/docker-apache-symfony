@@ -29,30 +29,24 @@ Getting started
 
 This section shows how to build and run a Symfony 2 demo application from scratch.
 
-Prerequisites:
+Create the Symfony project on the host system:
 
-* Docker
-* Composer (and therefore PHP)
-
-First, build your Symfony project on the host system:
-
-    mkdir /var/www/hello && cd /var/www/hello
-    composer create-project symfony/framework-standard-edition --no-interaction .
-    php app/console generate:bundle --namespace=Acme/Bundle/DemoBundle --no-interaction --dir src
+    mkdir ~/hello && cd ~/hello
+    docker run --rm -v $(pwd):/app composer/composer create-project symfony/framework-standard-edition --no-interaction .
 
 Create the `Dockerfile`:
 
     echo "FROM fazy/apache-symfony" > Dockerfile
     echo "ADD . /var/www/main" >> Dockerfile
 
-Then, build and run the Docker image:
+Build and run the Docker image:
 
     docker build -t symfony/hello .
     docker run -d -p 8000:80 --name hello symfony/hello
 
 Visit your new website:
 
-    curl -sS http://localhost:8000/hello/Docker
+    curl -sS http://localhost:8000/app/example
 
 
 Containerising your own app
@@ -101,3 +95,4 @@ To use your own Apache config, you can create your own version of the `vhost.con
 ADD it in your Dockerfile:
 
     ADD vhost.conf /etc/apache2/sites-available/000-default.conf
+
