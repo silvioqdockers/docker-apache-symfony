@@ -1,8 +1,6 @@
 docker-apache-symfony
 =====================
 
-**Work in progress, not finished/tested yet, not yet pushed image to Docker Hub**
-
 Docker image with fairly minimal requirements for running Symfony 2.
 
 Based on/provides:
@@ -16,20 +14,16 @@ Based on/provides:
 Why?
 ----
 
-There are several Symfony Docker images to choose from. I created this one because I needed one based on Debian,
-and because I believe the image should only include the core requirements (`php5-intl` and `php5-curl` are carefully
-chosen exceptions). It's easier to add than to remove things when extending an image.
-
-Note, this is not an image for building Symfony applications. You will need a separate image (TODO) to run tools
-like Composer etc.
+I needed an image based on Debian, and I believe the image should include as few additional components as
+possible (you can base an image off this with your additional requirements).
 
 
-Getting started
----------------
+Example usage
+-------------
 
-This section shows how to build and run a Symfony 2 demo application from scratch.
+You can build and run a Symfony 2 demo application from scratch with the following steps.
 
-Create the Symfony project on the host system:
+Create a Symfony project on the host system:
 
     mkdir ~/hello && cd ~/hello
     docker run --rm -v $(pwd):/app composer/composer create-project symfony/framework-standard-edition --no-interaction .
