@@ -55,10 +55,11 @@ Create a `Dockerfile` in the root of your application (e.g. /var/www/my-app):
 
 You might want to replace the above ADD line with something more specific:
 
-    ADD vendor /var/www/app/vendor/
-    ADD app /var/www/app/app/
-    ADD src /var/www/app/src/
-    ADD web /var/www/app/web/
+    ADD vendor /var/www/app/vendor
+    ADD bin /var/www/app/bin
+    ADD app /var/www/app/app
+    ADD src /var/www/app/src
+    ADD web /var/www/app/web
 
 Adding `vendor` first *might* help a little with caching, assuming vendor changes less frequently than the others.
 
