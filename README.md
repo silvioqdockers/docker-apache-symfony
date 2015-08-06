@@ -31,7 +31,7 @@ Create a Symfony project on the host system:
 Create the `Dockerfile`:
 
     echo "FROM fazy/apache-symfony" > Dockerfile
-    echo "ADD . /var/www/app" >> Dockerfile
+    echo "ADD . /app" >> Dockerfile
 
 Build and run the Docker image:
 
@@ -48,24 +48,24 @@ Containerising your own app
 
 To build a container including an existing Symfony app:
 
-Create a `Dockerfile` in the root of your application (e.g. /var/www/my-app):
+Create a `Dockerfile` in the root of your application (e.g. /my-app):
 
     FROM fazy/apache-symfony
-    ADD . /var/www/app
+    ADD . /app
 
 You might want to replace the above ADD line with something more specific:
 
-    ADD vendor /var/www/app/vendor
-    ADD bin /var/www/app/bin
-    ADD app /var/www/app/app
-    ADD src /var/www/app/src
-    ADD web /var/www/app/web
+    ADD vendor /app/vendor
+    ADD bin /app/bin
+    ADD app /app/app
+    ADD src /app/src
+    ADD web /app/web
 
 Adding `vendor` first *might* help a little with caching, assuming vendor changes less frequently than the others.
 
 Build your container and commit:
 
-    cd /var/www/my-app
+    cd /app
     docker build -t myname/myapp .
     docker commit
 

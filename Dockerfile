@@ -22,6 +22,7 @@ ADD vhost.conf /etc/apache2/sites-available/000-default.conf
 ADD run.sh /run.sh
 RUN chmod 0755 /run.sh
 
+WORKDIR /app
 EXPOSE 80
 CMD ["/run.sh"]
 
