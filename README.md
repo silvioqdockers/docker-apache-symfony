@@ -31,7 +31,7 @@ Create a Symfony project on the host system:
 Create the `Dockerfile`:
 
     echo "FROM fazy/apache-symfony" > Dockerfile
-    echo "ADD . /var/www/main" >> Dockerfile
+    echo "ADD . /var/www/app" >> Dockerfile
 
 Build and run the Docker image:
 
@@ -51,14 +51,14 @@ To build a container including an existing Symfony app:
 Create a `Dockerfile` in the root of your application (e.g. /var/www/my-app):
 
     FROM fazy/apache-symfony
-    ADD . /var/www/main
+    ADD . /var/www/app
 
 You might want to replace the above ADD line with something more specific:
 
-    ADD vendor /var/www/main/vendor/
-    ADD app /var/www/main/app/
-    ADD src /var/www/main/src/
-    ADD web /var/www/main/web/
+    ADD vendor /var/www/app/vendor/
+    ADD app /var/www/app/app/
+    ADD src /var/www/app/src/
+    ADD web /var/www/app/web/
 
 Adding `vendor` first *might* help a little with caching, assuming vendor changes less frequently than the others.
 
