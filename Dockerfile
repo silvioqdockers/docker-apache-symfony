@@ -19,8 +19,9 @@ RUN a2enmod rewrite
 ADD vhost.conf /etc/apache2/sites-available/000-default.conf
 
 # Add main start script for when image launches
-ADD start.sh /start.sh
-RUN chmod 0755 /start.sh
+ADD run.sh /run.sh
+RUN chmod 0755 /run.sh
 
 EXPOSE 80
-CMD ["/start.sh"]
+CMD ["/run.sh"]
+
