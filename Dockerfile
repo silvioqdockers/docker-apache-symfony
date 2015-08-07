@@ -5,6 +5,7 @@ MAINTAINER Lars Janssen <lars@fazy.net>
 ENV DEBIAN_FRONTEND noninteractive
 RUN    apt-get update \
     && apt-get -yq install \
+        curl \
         libapache2-mod-php5 \
         php5-intl \
         php5-curl \
