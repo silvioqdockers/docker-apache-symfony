@@ -26,7 +26,7 @@ You can build and run a Symfony 2 demo application from scratch with the followi
 Create a Symfony project on the host system:
 
     mkdir ~/hello && cd ~/hello
-    docker run --rm -v $(pwd):/app composer/composer create-project symfony/framework-standard-edition --no-interaction .
+    docker run --rm -v $(pwd):/app composer/composer create-project symfony/framework-standard-edition:2.8 --no-interaction .
 
 Create the `Dockerfile`:
 
@@ -40,7 +40,7 @@ Build and run the Docker image:
 
 Visit your new website:
 
-    curl -sS http://localhost:8000/app/example
+    curl -v http://localhost:8000
 
 
 Containerising your own app
