@@ -2,7 +2,8 @@
 
 mkdir -p app/cache app/logs
 touch app/logs/prod.log
-chown -R www-data: .
+chgrp -R www-data .
+chmod -R g+w app/cache app/logs
 
 source /etc/apache2/envvars
 
