@@ -41,3 +41,7 @@ WORKDIR /app
 EXPOSE 80
 CMD ["/run.sh"]
 
+# Composer installation
+RUN curl  -sS  https://getcomposer.org/installer  | php \
+  &&  mv  composer.phar  /usr/local/bin/composer
+
