@@ -7,9 +7,9 @@ Based on/provides:
 
 * Debian Jessie
 * Apache 2.4
-* PHP 5.6 (mod_php and cli)
-* php5-intl
-* php5-curl
+* PHP 7.0 (mod_php and cli)
+* php7-intl
+* php7-curl
 
 Why?
 ----
@@ -21,12 +21,12 @@ possible (you can base an image off this with your additional requirements).
 Example usage
 -------------
 
-You can build and run a Symfony 2 demo application from scratch with the following steps.
+You can build and run a Symfony 3.2 demo application from scratch with the following steps.
 
 Create a Symfony project on the host system:
 
     mkdir ~/hello && cd ~/hello
-    docker run --rm -v $(pwd):/app composer/composer create-project symfony/framework-standard-edition:2.8 --no-interaction .
+    docker run --rm -v $(pwd):/app composer/composer create-project symfony/framework-standard-edition:3.2 --no-interaction .
 
 Create the `Dockerfile`:
 
